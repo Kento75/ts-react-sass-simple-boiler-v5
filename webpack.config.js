@@ -1,4 +1,7 @@
-const path = require ('path');
+const path = require('path');
+const htmlWebpackPlugin = require('html-webpack-plugin');
+const extTextPlugin = require('extract-text-webpack-plugin');
+
 const rules = [
   /* TypeScript用の設定 */
   {
@@ -13,9 +16,7 @@ const rules = [
   {
     // 対象とする拡張子を指定
     test: /\.scss$/,
-    use: [
-      // linkタグへの出力用
-      'style-loader',
+    use: extTextPlugin.extract([
       // CSSのバンドル設定
       {
         loader: 'css-loader',
@@ -38,7 +39,7 @@ const rules = [
         //   sourceMap: true,
         // }
       },
-    ],
+    ]),
   },
   /* 画像ファイル用設定 */
   {
@@ -46,6 +47,16 @@ const rules = [
     test: /\.(gif|png|jpg|jpeg|svg|ttf|eot|wof|woff|woff2)$/,
     // 画像をBase64で取り込み
     loader: 'url-loader',
+    // 画像ファイルに関するオプション
+    options: {
+      // 20KB以上を対象とする（バイナリ換算）
+      // https://www.gbmb.org/kb-to-bytes で正確な値を調べる
+      limit: 20480,
+      // 256KB以上を対象とする（バイナリ換算）
+      // limit: 262144,
+      // ファイルのアウトプット場所 名前は保持
+      name: './images/[name].[ext]',
+    },
   },
 ];
 
@@ -60,7 +71,7 @@ module.exports = {
   // ビルド後の出力先設定
   output: {
     // 出力先パス
-    path: path.resolve (__dirname, 'build'),
+    path: path.resolve(__dirname, 'build'),
     // ファイル名
     filename: 'bundle.js',
   },
@@ -68,6 +79,13 @@ module.exports = {
     // ビルド時に使用するルール（上で設定）を設定
     rules,
   },
+  // 各種プラグイン
+  plugins: [
+    // filenameで指定したJSを読み込むHTMLファイルをbuildディレクトリに生成
+    new htmlWebpackPlugin(),
+    // 出力ファイル名を指定
+    new extTextPlugin('[name].css'),
+  ],
   resolve: {
     // 対象とする拡張子を指定
     extensions: ['.ts', '.tsx', '.js'],
