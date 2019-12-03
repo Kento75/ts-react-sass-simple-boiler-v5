@@ -1,10 +1,9 @@
 const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const extTextPlugin = require('extract-text-webpack-plugin');
-const {
-  CleanWebpackPlugin
-} = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const optimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const rules = [
   /* TypeScript用の設定 */
@@ -90,11 +89,13 @@ module.exports = {
         uglifyOptions: {
           compress: {
             // console.log() console.table()等除去
-            drop_console: true
-          }
-        }
-      })
-    ]
+            drop_console: true,
+          },
+        },
+      }),
+      // スタイルシートの圧縮設定
+      // new optimizeCssAssetsPlugin({}),
+    ],
   },
   // 各種プラグイン
   plugins: [

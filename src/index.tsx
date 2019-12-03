@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line
 import ReactDOM from 'react-dom';
-import Button from './components/Button/index';
+import Button from './components/Button/index'; // eslint-disable-line
 import './scss-style.scss';
 import './style1.scss';
 import './style2.scss';
 
 // import でもできるが面倒なので、妥協して require を使用
-const reactImg = require('./assets/img/react.png');
+const reactImg = require('./assets/img/react.png'); // eslint-disable-line
 
 function App(): JSX.Element {
   console.log('test111');

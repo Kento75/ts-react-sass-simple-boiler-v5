@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-export interface IButtonProps {
+export interface ButtonProps {
   text: string;
   flag?: boolean;
   action(): void;
 }
 
-const Button = (props: IButtonProps) => {
+const Button = (props: ButtonProps) => {
   const { text, flag, action } = props;
   return (
     <React.Fragment>
-      { flag && <p>{text}</p> }
-      <button onClick={ action }>Button</button>
+      {flag && <p>{text}</p>}
+      <button onClick={action}>Button</button>
     </React.Fragment>
   );
 };
