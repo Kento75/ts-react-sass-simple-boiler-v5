@@ -4,6 +4,7 @@ const extTextPlugin = require('extract-text-webpack-plugin');
 const {
   CleanWebpackPlugin
 } = require('clean-webpack-plugin');
+const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const rules = [
   /* TypeScript用の設定 */
@@ -81,6 +82,19 @@ module.exports = {
   module: {
     // ビルド時に使用するルール（上で設定）を設定
     rules,
+  },
+  // プロダクション環境での設定（minimizer）
+  optimization: {
+    minimizer: [
+      new uglifyJsPlugin({
+        uglifyOptions: {
+          compress: {
+            // console.log() console.table()等除去
+            drop_console: true
+          }
+        }
+      })
+    ]
   },
   // 各種プラグイン
   plugins: [

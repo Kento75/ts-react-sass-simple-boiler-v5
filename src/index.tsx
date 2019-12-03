@@ -9,6 +9,10 @@ import './style2.scss';
 const reactImg = require('./assets/img/react.png');
 
 function App(): JSX.Element {
+  console.log('test111');
+  console.log('test111');
+  console.log('test111');
+  console.log('test111');
   const sum = (a: number, b: number): number => a + b;
 
   return (
