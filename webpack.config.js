@@ -1,6 +1,9 @@
 const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const extTextPlugin = require('extract-text-webpack-plugin');
+const {
+  CleanWebpackPlugin
+} = require('clean-webpack-plugin');
 
 const rules = [
   /* TypeScript用の設定 */
@@ -85,6 +88,8 @@ module.exports = {
     new htmlWebpackPlugin(),
     // 出力ファイル名を指定
     new extTextPlugin('[name].css'),
+    // buildディレクトリをビルド前にクリーンアップ
+    new CleanWebpackPlugin(),
   ],
   resolve: {
     // 対象とする拡張子を指定
